@@ -16,6 +16,8 @@ class logo_screen{
 		ctx.fillStyle = "rgb(0,0,0)";
 		ctx.fillRect(0,0,ctx.canvas.width,ctx.canvas.height);  
 		//draw company logo
+		ctx.textAlign = "center";
+		ctx.textBaseline = "middle";
 		ctx.font = 'bold 48px serif';
 		ctx.fillStyle = "rgb(255,255,255)";
 		ctx.fillText("Company LOGO!", ctx.canvas.width/2, ctx.canvas.height/2);
