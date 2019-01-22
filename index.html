@@ -1,0 +1,69 @@
+<html>
+    <head>
+        <title>JS Game Framework</title>
+        <style>
+            html, body {
+    			margin: 0px auto;
+    			padding: 0px;
+                background-color: var(--bg_colour);
+                overflow-x: hidden;
+
+        </style>
+    </head>
+    <body>
+    <canvas id="main_canvas" width="100" height="100"></canvas>
+    </body>
+</html>
+
+<script src="functions.js"></script> 
+<script src="effects.js"></script> 
+<script src="logo_screen.js"></script> 
+<script src="main_menu.js"></script> 
+
+<script>
+
+const cvs = document.getElementById("main_canvas");
+const ctx = cvs.getContext("2d");
+
+
+//time variables
+var global_time = 0; // how many ms have passed since the start of the game?
+var dt = 10; //how many ms since the last frame?
+var start_time = Date.now(); //start and end for timing dt
+var end_time = Date.now();
+
+var state = new main_menu(); //the current screen which the game should display, start with the logo
+var effects = new effect_system();
+
+//draw the
+
+//main loop for the game
+function main_loop(){
+
+    //get the delta time
+    end_time = Date.now();
+    dt = end_time - start_time;
+    global_time += dt;
+    start_time = Date.now();
+
+    //update the objects
+    state.update(dt, global_time);
+
+    //draw the screen
+    state.draw();  
+
+    //update and draw the effects
+    effects.update_and_draw();
+
+    //request new loop
+    window.requestAnimationFrame(main_loop);
+
+}
+
+reshapeScreen();
+window.addEventListener("resize", reshapeScreen);
+window.addEventListener("mousemove", mouse_move);
+window.addEventListener("click", mouse_click);
+window.requestAnimationFrame(main_loop);
+
+</script>
